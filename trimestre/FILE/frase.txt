@@ -1,0 +1,3 @@
+questo file è un esempio per 
+vedere se il contatore
+funziona
