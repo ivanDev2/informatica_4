@@ -1,6 +1,8 @@
 //moreschi iavn 
 
 #include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
 #define M 20 // lunghezza stringa
 #define V 10 // lunghezza array
 
@@ -29,8 +31,6 @@ typedef struct {
 }Orario;
 
 
-
-
 typedef struct {
     char nome[M];
     char cognome[M];
@@ -45,10 +45,20 @@ typedef struct {
 
     Orario orario1;
 
-
 }Identita;
 
-int main(){
 
-    Identita persona[N];
+void caricaTabella(Identita T[]);
+void stampaTabella(Identita T[]);
+
+int main(){
+    srand(time(NULL));
+    Identita tab[N];
 }
+
+void caricaTabella(Identita tab[]){
+
+}
+
+
+
