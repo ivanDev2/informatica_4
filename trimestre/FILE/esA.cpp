@@ -16,6 +16,7 @@ int main(){
         
     }
 
+    printf("\n");
     fclose(puntIn);
     fclose(puntout);
     return 0; 

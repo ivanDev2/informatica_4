@@ -1,17 +1,17 @@
 #include <stdio.h>
 
 int main(){
-    int carattere = 0, parole = 1, righe = 0;
+    int carattere = 0, parole = 1, righe = 1;
     char nomeFileIn[] = "frase.txt";
     char c;
     FILE *puntIn = fopen(nomeFileIn, "r");
 
     while(!feof(puntIn)){
         c = fgetc(puntIn);
-        if(c != ' '){
+        if(c != ' ' && c != '\t' && c != '\n'){
             carattere++;
         }
-        if(c == ' '){
+        if(c == ' ' && c = '\n'){
             parole++;
         }
         if(c == '\n'){

@@ -14,7 +14,10 @@ int main(){
 
     while(!feof(numeri)){
 
-            if(c != ' ' || c != '\n'){
+
+            c = fgetc(numeri);
+
+            if(c == ' ' || c == '\n'){
                 if(numeroIn){
                     if(numero %2 == 0){
                         fprintf(pari, "%d\n", numero);   
@@ -30,7 +33,7 @@ int main(){
 
             else {
 
-                numero = numero *10 ( c - '0');
+                numero = numero *10 + ( c - '0');
 
                 numeroIn = 1;
             }
@@ -39,5 +42,7 @@ int main(){
     fclose(numeri);
     fclose(pari);
     fclose(dispari);
+
+    return 0; 
 
 }
