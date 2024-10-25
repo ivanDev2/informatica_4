@@ -1,24 +1,42 @@
 #include <stdio.h>
 
-int main(){
-    int carattere = 0, parole = 1, righe = 1;
+int main() {
+    int caratteriTotali = 0, parole = 0, righe = 1;
     char nomeFileIn[] = "frase.txt";
-    char c;
+    char c, ultimoCarattere = ' ';
     FILE *puntIn = fopen(nomeFileIn, "r");
 
-    while(!feof(puntIn)){
-        c = fgetc(puntIn);
-        if(c != ' ' && c != '\t' && c != '\n'){
-            carattere++;
+    if (puntIn == NULL) {
+        printf("Errore nell'apertura del file.\n");
+        return 1;
+    }
+
+    while ((c = fgetc(puntIn)) != EOF) {
+        // Conta i caratteri (escludendo spazi, tabulazioni e newline)
+        if (c != ' ' && c != '\t' && c != '\n') {
+            caratteriTotali++;
         }
-        if(c == ' ' && c = '\n'){
+
+        // Conta le parole quando si passa da un carattere a un delimitatore
+        if ((c == ' ' || c == '\t' || c == '\n') && (ultimoCarattere != ' ' && ultimoCarattere != '\t' && ultimoCarattere != '\n')) {
             parole++;
         }
-        if(c == '\n'){
+
+        // Conta le righe
+        if (c == '\n') {
             righe++;
         }
+
+        // Memorizza l'ultimo carattere letto
+        ultimoCarattere = c;
+    }
+
+    // Aggiunge una parola se l'ultimo carattere non era uno spazio, tab o newline
+    if (ultimoCarattere != ' ' && ultimoCarattere != '\t' && ultimoCarattere != '\n') {
+        parole++;
     }
 
     fclose(puntIn);
-    printf("ci sono: %d caratteri, %d parole, %d frasi", carattere, parole, righe);
+    printf("Ci sono: %d caratteri, %d parole, %d righe\n", caratteriTotali, parole, righe);
+    return 0;
 }
