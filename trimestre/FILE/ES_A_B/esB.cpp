@@ -4,8 +4,8 @@ int main(){
 
     char c;
 
-    FILE * puntIn = fopen("nomi.txt", "r");
-    FILE * puntout = fopen("nome.txt", "w");
+    FILE * puntIn = fopen("in.txt", "r");
+    FILE * puntout = fopen("out.txt", "w");
 
     while (!feof (puntIn)) {
 
