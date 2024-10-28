@@ -1,7 +1,11 @@
 #include <iostream>
 
 int main(){
-/workspaces/informatica_4/corsoC++
-    std::cout << "ciao a tutti";
+
+    int eta = 18;
+
+
+    std::cout << "ciao a tutti" << std::endl;
+    std::cout << "mi piace programmare";
     return 0; 
 }
