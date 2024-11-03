@@ -3,7 +3,7 @@
 #include <time.h>
 #include <string.h>
 
-#define N 2   // Numero di studenti
+#define N 10 // Numero di studenti
 #define M 20  // Lunghezza stringa
 #define V 6   // Numero di voti
 
@@ -62,7 +62,7 @@ int conta_cognome(char *nomeFile, char *cognome) {
     FILE *fp = fopen(nomeFile, "r");
     if (fp == NULL) {
         perror("Errore nell'apertura del file");
-        return;
+        return 0; // Restituisce 0 in caso di errore
     }
 
     alunno buffer;
