@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 
-void cesareCrypt(FILE *messaggio, FILE* puntout, int chiave){
+void cesareCrypt(FILE *messaggio, FILE *puntout, int chiave){
     while(!feof(messaggio)){
         char lettera = fgetc(messaggio);
 
@@ -15,11 +15,24 @@ void cesareCrypt(FILE *messaggio, FILE* puntout, int chiave){
             lettera = (lettera - 'a' + chiave) %26 +'a';
             fputc(lettera, puntout);
         }
-
-
     }
 }
 
+/*void cesareDecrypt(FILE *messaggio, FILE *puntout, int chiave){
+    while(!feof(messaggio)){
+        char lettera = fgetc(messaggio);
+
+        if(lettera >= 'A' && lettera <= 'Z'){
+            lettera = ( lettera + 'A' + chiave) %26 + 'A';
+            fputc(lettera, puntout);
+        }
+        else if(lettera >= 'a' && lettera <= 'z'){
+            lettera = (lettera + 'a' + chiave) %26 + 'a';
+            fputc(lettera,puntout);
+        }
+    }
+}
+*/
 
 int main(){
     char buffer[100];
@@ -28,11 +41,13 @@ int main(){
 
     FILE *puntIn = fopen ("cryptFile.txt", "r");
     FILE *puntout = fopen("criptazoine.txt", "w");
+    FILE *puntout2 = fopen("decriptazione.txt", "w");
     
     printf("inserisci la chiave: \n");
     scanf("%d", &chiave);
 
     cesareCrypt(puntIn,puntout,chiave);
+    cesareDecrypt(puntIn,puntout2,chiave);
 
     fclose(puntIn);
 
