@@ -1,3 +1,11 @@
+/*funzione per scrivere un file di N record con N costante posta a 10;
+funzione per leggere e stampare su monitor le informazioni del file di record 
+(si usi il controllo di fine file e non il ciclo for con N perché la funzione sia valida quale che sia il numero di record del file (quindi anche diverso da N)).
+conta quante volte è presente uno studente che ha il cognome uguale alla stringa passata in output; 
+la funzione restituisce un intero per ogni studente visualizza il suo cognome, 
+la media dei suoi voti, il suo voto più alto e il suo voto più basso. 
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>

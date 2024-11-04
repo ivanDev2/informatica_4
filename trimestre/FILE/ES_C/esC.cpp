@@ -1,3 +1,5 @@
+//Scrivi un programma che conta i caratteri, le parole e le righe presenti in un file di testo (non gli spazi, tabulazioni e a capo)
+
 #include <stdio.h>
 
 int main() {

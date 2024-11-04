@@ -1,3 +1,5 @@
+/*Scrivi  un  programma  che  legge  il  file  nomi.txt e  scrive  un  file  NOMI2.TXT,  dove  tutti  i  nomi  sono stati trasformati in caratteri maiuscoli.
+*/
 
 #include <stdio.h>
 

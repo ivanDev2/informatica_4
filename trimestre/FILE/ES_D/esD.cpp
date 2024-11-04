@@ -1,3 +1,8 @@
+/*Scrivi un programma che legge il file numeri.txt (cifre numeriche ascii)composto da una sequenza di numeri di una cifra separati da uno 
+spazio bianco e successivamente scrive 2 file, pari.txt e dispari.txt, nei quali dovrai inserire 
+i numeri che hai letto a seconda del loro valore pari o dispari
+*/
+
 #include <stdio.h>
 
 int main(){

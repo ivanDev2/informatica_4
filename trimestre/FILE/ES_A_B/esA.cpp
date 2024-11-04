@@ -1,3 +1,7 @@
+/*Scrivi  un  programma  che  esegue  la  copia  di  un  file  di  testo. 
+Il  programma  legge  carattere per carattere il contenuto del file in.txt e lo ricopia nel file out.txt. 
+*/
+
 #include <stdio.h>
 
 int main(){

@@ -1,3 +1,9 @@
+/*Scrivere un programma in C che consente di cifrare o decifrare un file utilizzando l'algoritmo di Cesare.
+Il programma accetta parametri da riga di comando per specificare il file di input, il file di output, 
+la chiave e l'azione (cifrare o decifrare).
+*/
+
+
 #include <stdio.h>
 
 void cesareCrypt(FILE *messaggio, FILE *puntout, int chiave){
