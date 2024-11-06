@@ -11,7 +11,7 @@ la media dei suoi voti, il suo voto più alto e il suo voto più basso.
 #include <time.h>
 #include <string.h>
 
-#define N 10 // Numero di studenti
+#define N 2 // Numero di studenti
 #define M 20  // Lunghezza stringa
 #define V 6   // Numero di voti
 
@@ -22,26 +22,28 @@ typedef struct alunno {
 } alunno;
 
 // Funzione per caricare i dati nel file
-void caricaFile(char *nomeFile, alunno buffer[]) {
+void caricaFile(char *nomeFile) {
     FILE *fp = fopen(nomeFile, "w");
+    
     if (fp == NULL) {
         perror("Errore nell'apertura del file");
         return;
     }
+    alunno buffer;
 
-    for (int i = 0; i < N; i++) {
+    
+    for(int i=0; i<N; i++){
         printf("Inserisci il nome dello studente: ");
         scanf("%s", buffer[i].nome);
         printf("Inserisci il cognome dello studente: ");
         scanf("%s", buffer[i].cognome);
 
-        for (int j = 0; j < V; j++) {
-            buffer[i].voti[j] = rand() % 10 + 1;  // Genera voti casuali tra 1 e 10
-        }
-
-        fwrite(&buffer[i], sizeof(alunno), 1, fp);  // Scrivi il singolo alunno nel file
+    for (int j = 0; j < V; j++) {
+        buffer[i].voti[j] = rand() % 10 + 1; // Genera voti casuali tra 1 e 10
+        
     }
-
+    }
+    fwrite(&buffer, sizeof(alunno), 1, fp); // Scrivi il singolo alunno nel file
     fclose(fp);
 }
 
@@ -54,7 +56,7 @@ void leggiFile(char *nomeFile) {
     }
 
     alunno buffer;
-    while (fread(&buffer, sizeof(alunno), 1, fp) == 1) {
+    while (fread(&buffer, sizeof(alunno), 1, fp) > 0) {
         printf("Nome: %s\nCognome: %s\nVoti:", buffer.nome, buffer.cognome);
         for (int i = 0; i < V; i++) {
             printf(" %d", buffer.voti[i]);
@@ -75,7 +77,7 @@ int conta_cognome(char *nomeFile, char *cognome) {
 
     alunno buffer;
     int contatore = 0;
-    while (fread(&buffer, sizeof(alunno), 1, fp) == 1) {
+    while (fread(&buffer, sizeof(alunno), 1, fp) > 0) {
         if (strcmp(buffer.cognome, cognome) == 0) {
             contatore++;
         }
@@ -120,12 +122,12 @@ int main() {
     char nomeFile[] = "studente.dat";
     char cognome[20];
     int n;
-    alunno buffer[N];  // Array per contenere gli studenti
 
-    caricaFile(nomeFile, buffer);
+    caricaFile(nomeFile);
     
     leggiFile(nomeFile);
 
+    /*
     printf("\nInserisci il cognome da cercare: ");
     scanf("%s", cognome);
 
@@ -134,6 +136,6 @@ int main() {
 
     printf("\nInformazioni degli studenti:\n");
     statistiche(nomeFile);
-
+    */
     return 0;
 }
