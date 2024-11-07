@@ -53,14 +53,14 @@ int main() {
 
     correggiStruct(nomeFile);
 
-    leggiFile(nomeFile);
+    stampaFile(nomeFile);
     
     return 0;
 }
 
 // Funzione per caricare i dati nel file
 void caricaFile(char *nomeFile) {
-    FILE *fp = fopen(nomeFile, "ab");
+    FILE *fp = fopen(nomeFile, "wb");
     if (fp == NULL) {
         perror("Errore nell'apertura del file");
         return;
@@ -69,13 +69,13 @@ void caricaFile(char *nomeFile) {
     alunno buffer;
     for (int i = 0; i < N; i++) {
         printf("Inserisci il nome dello studente: ");
-        scanf("%19s", buffer.nome);  // Limita a 19 caratteri
+        scanf("%s", buffer.nome);
         printf("Inserisci il cognome dello studente: ");
-        scanf("%19s", buffer.cognome);  // Limita a 19 caratteri
+        scanf("%s", buffer.cognome);  
 
-        // Inizializzazione dei voti con valori casuali tra 1 e 10
+        
         for (int j = 0; j < V; j++) {
-            buffer.voti[j] = rand() % 10 + 1;  // Voti tra 1 e 10
+            buffer.voti[j] = rand() % 10 + 1;  // Voti random tra 1 e 10
         }
 
         // Scrivi lo studente nel file
@@ -155,6 +155,8 @@ void statistiche(char *filename) {
     fclose(fp);
 }
 
+
+// funzione per correggere i voti minori di quattro assegnandoli a 4 
 void correggiStruct(char *filename){
     FILE *fp = fopen(filename, "r+b");
 
@@ -181,8 +183,5 @@ void correggiStruct(char *filename){
             fseek(fp, -sizeof(alunno), SEEK_CUR);
             fwrite(&buffer, sizeof(alunno),1,fp);
         }
-
-
     }
-
 }
