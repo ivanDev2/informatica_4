@@ -11,9 +11,9 @@ la media dei suoi voti, il suo voto più alto e il suo voto più basso.
 #include <time.h>
 #include <string.h>
 
-#define N 2 // Numero di studenti
-#define M 20  // Lunghezza stringa
-#define V 6   // Numero di voti
+#define N 2  // Numero di studenti
+#define M 20 // Lunghezza stringa
+#define V 6  // Numero di voti
 
 typedef struct alunno {
     char nome[M];
@@ -21,35 +21,73 @@ typedef struct alunno {
     int voti[V];
 } alunno;
 
+void caricaFile(char *nomeFile);
+void stampaFile(char *nomeFile);
+int conta_cognome(char *nomeFile, char *cognome);
+void statistiche(char *filename);
+void correggiStruct(char *filename);
+
+int main() {
+    srand(time(NULL));  
+
+    char nomeFile[] = "studente.dat";
+    char cognome[20];
+    int n;
+    
+
+    //Carica i dati nel file
+    caricaFile(nomeFile);
+
+    // Leggi e stampa i dati
+    stampaFile(nomeFile);
+
+    // Funzionalità per la ricerca e statistiche
+    printf("\nInserisci il cognome da cercare: ");
+    scanf("%19s", cognome);  // Limita a 19 caratteri per evitare overflow
+
+    n = conta_cognome(nomeFile, cognome);
+    printf("Numero di studenti con cognome '%s': %d\n", cognome, n);
+
+    printf("\nInformazioni degli studenti:\n");
+    statistiche(nomeFile);
+
+    correggiStruct(nomeFile);
+
+    leggiFile(nomeFile);
+    
+    return 0;
+}
+
 // Funzione per caricare i dati nel file
 void caricaFile(char *nomeFile) {
-    FILE *fp = fopen(nomeFile, "w");
-    
+    FILE *fp = fopen(nomeFile, "ab");
     if (fp == NULL) {
         perror("Errore nell'apertura del file");
         return;
     }
+
     alunno buffer;
-
-    
-    for(int i=0; i<N; i++){
+    for (int i = 0; i < N; i++) {
         printf("Inserisci il nome dello studente: ");
-        scanf("%s", buffer[i].nome);
+        scanf("%19s", buffer.nome);  // Limita a 19 caratteri
         printf("Inserisci il cognome dello studente: ");
-        scanf("%s", buffer[i].cognome);
+        scanf("%19s", buffer.cognome);  // Limita a 19 caratteri
 
-    for (int j = 0; j < V; j++) {
-        buffer[i].voti[j] = rand() % 10 + 1; // Genera voti casuali tra 1 e 10
-        
+        // Inizializzazione dei voti con valori casuali tra 1 e 10
+        for (int j = 0; j < V; j++) {
+            buffer.voti[j] = rand() % 10 + 1;  // Voti tra 1 e 10
+        }
+
+        // Scrivi lo studente nel file
+        fwrite(&buffer, sizeof(alunno), 1, fp); 
     }
-    }
-    fwrite(&buffer, sizeof(alunno), 1, fp); // Scrivi il singolo alunno nel file
+
     fclose(fp);
 }
 
 // Funzione per leggere e stampare i dati dal file
-void leggiFile(char *nomeFile) {
-    FILE *fp = fopen(nomeFile, "r");
+void stampaFile(char *nomeFile) {
+    FILE *fp = fopen(nomeFile, "rb");
     if (fp == NULL) {
         perror("Errore nell'apertura del file");
         return;
@@ -67,12 +105,12 @@ void leggiFile(char *nomeFile) {
     fclose(fp);
 }
 
-// Funzione per contare il numero di occorrenze di un cognome
+// Funzione per contare il numero di studenti con il cognome passato come parametro
 int conta_cognome(char *nomeFile, char *cognome) {
-    FILE *fp = fopen(nomeFile, "r");
+    FILE *fp = fopen(nomeFile, "rb");  
     if (fp == NULL) {
         perror("Errore nell'apertura del file");
-        return 0; // Restituisce 0 in caso di errore
+        return 0; 
     }
 
     alunno buffer;
@@ -89,7 +127,7 @@ int conta_cognome(char *nomeFile, char *cognome) {
 
 // Funzione per calcolare e visualizzare statistiche dei voti di ogni studente
 void statistiche(char *filename) {
-    FILE *fp = fopen(filename, "r");
+    FILE *fp = fopen(filename, "rb");  
     if (fp == NULL) {
         perror("Errore nell'apertura del file");
         return;
@@ -110,32 +148,41 @@ void statistiche(char *filename) {
         }
 
         float media = (float)somma / V;
-        printf("Cognome: %s, Media: %.2f, Voto più alto: %d, Voto più basso: %d\n", buffer.cognome, media, max_voto, min_voto);
+        printf("Cognome: %s, Media: %.2f, Voto più alto: %d, Voto più basso: %d\n", 
+               buffer.cognome, media, max_voto, min_voto);
     }
 
     fclose(fp);
 }
 
-int main() {
-    srand(time(NULL));  
+void correggiStruct(char *filename){
+    FILE *fp = fopen(filename, "r+b");
 
-    char nomeFile[] = "studente.dat";
-    char cognome[20];
-    int n;
-
-    caricaFile(nomeFile);
+    if(fp == NULL) {
+        perror("Errore nell'apertura del file");
+        return;
+    }
     
-    leggiFile(nomeFile);
+    int flag = 0; 
+    alunno buffer;
+    while(fread(&buffer, sizeof(alunno), 1, fp) > 0){
 
-    /*
-    printf("\nInserisci il cognome da cercare: ");
-    scanf("%s", cognome);
+        flag = 0;
+        for(int i=0; i<V; i++){
 
-    n = conta_cognome(nomeFile, cognome);
-    printf("Numero di studenti con cognome '%s': %d\n", cognome, n);
+            if(buffer.voti[i] < 4){
 
-    printf("\nInformazioni degli studenti:\n");
-    statistiche(nomeFile);
-    */
-    return 0;
+                buffer.voti[i] = 4;
+                flag = 1;  
+            }
+        }
+
+        if(flag == 1){
+            fseek(fp, -sizeof(alunno), SEEK_CUR);
+            fwrite(&buffer, sizeof(alunno),1,fp);
+        }
+
+
+    }
+
 }
