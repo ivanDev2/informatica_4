@@ -185,3 +185,5 @@ void correggiStruct(char *filename){
         }
     }
 }
+
+int contaRecord(char *)
