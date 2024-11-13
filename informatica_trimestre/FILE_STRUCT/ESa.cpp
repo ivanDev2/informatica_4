@@ -5,7 +5,6 @@ conta quante volte è presente uno studente che ha il cognome uguale alla string
 la funzione restituisce un intero per ogni studente visualizza il suo cognome, 
 la media dei suoi voti, il suo voto più alto e il suo voto più basso. 
 */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -26,17 +25,20 @@ void stampaFile(char *nomeFile);
 int conta_cognome(char *nomeFile, char *cognome);
 void statistiche(char *filename);
 void correggiStruct(char *filename);
+int contaRecord(char *filename);
 
 int main() {
     srand(time(NULL));  
 
     char nomeFile[] = "studente.dat";
     char cognome[20];
-    int n;
-    
+    int n, l;
 
-    //Carica i dati nel file
+    // Carica i dati nel file
     caricaFile(nomeFile);
+
+    l = contaRecord(nomeFile);
+    printf("La lunghezza dei record: %d\n", l); // Corretto il formato di stampa
 
     // Leggi e stampa i dati
     stampaFile(nomeFile);
@@ -73,7 +75,6 @@ void caricaFile(char *nomeFile) {
         printf("Inserisci il cognome dello studente: ");
         scanf("%s", buffer.cognome);  
 
-        
         for (int j = 0; j < V; j++) {
             buffer.voti[j] = rand() % 10 + 1;  // Voti random tra 1 e 10
         }
@@ -155,8 +156,7 @@ void statistiche(char *filename) {
     fclose(fp);
 }
 
-
-// funzione per correggere i voti minori di quattro assegnandoli a 4 
+// Funzione per correggere i voti minori di quattro assegnandoli a 4 
 void correggiStruct(char *filename){
     FILE *fp = fopen(filename, "r+b");
 
@@ -165,25 +165,33 @@ void correggiStruct(char *filename){
         return;
     }
     
-    int flag = 0; 
+    int flag; 
     alunno buffer;
-    while(fread(&buffer, sizeof(alunno), 1, fp) > 0){
+    
+   while(fread(&buffer, sizeof(alunno), 1, fp) > 0){
 
-        flag = 0;
-        for(int i=0; i<V; i++){
+       flag = 0;
+       for(int i=0; i<V; i++){
 
-            if(buffer.voti[i] < 4){
+           if(buffer.voti[i] < 4){
+               buffer.voti[i] = 4;
+               flag = 1;  
+           }
+       }
 
-                buffer.voti[i] = 4;
-                flag = 1;  
-            }
-        }
-
-        if(flag == 1){
-            fseek(fp, -sizeof(alunno), SEEK_CUR);
-            fwrite(&buffer, sizeof(alunno),1,fp);
-        }
-    }
+       if(flag == 1){
+           fseek(fp, -sizeof(alunno), SEEK_CUR);
+           fwrite(&buffer, sizeof(alunno),1,fp);
+       }
+   }
+   fclose(fp); // Aggiunta chiusura del file
 }
 
-int contaRecord(char *)
+int contaRecord(char *filename) {
+   FILE *fp = fopen(filename, "rb"); 
+   
+   fseek(fp,0,SEEK_END);
+   long l = ftell(fp);
+   fclose(fp); 
+   return (l / sizeof(alunno));
+}
