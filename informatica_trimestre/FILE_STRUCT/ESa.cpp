@@ -11,7 +11,7 @@ la media dei suoi voti, il suo voto più alto e il suo voto più basso.
 #include <string.h>
 
 #define N 2  // Numero di studenti
-#define M 20 // Lunghezza stringa
+#define M 20// Lunghezza stringa
 #define V 6  // Numero di voti
 
 typedef struct alunno {
@@ -171,6 +171,7 @@ void correggiStruct(char *filename){
    while(fread(&buffer, sizeof(alunno), 1, fp) > 0){
 
        flag = 0;
+       
        for(int i=0; i<V; i++){
 
            if(buffer.voti[i] < 4){
@@ -185,6 +186,7 @@ void correggiStruct(char *filename){
        }
    }
    fclose(fp); // Aggiunta chiusura del file
+
 }
 
 int contaRecord(char *filename) {
