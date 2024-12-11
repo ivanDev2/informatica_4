@@ -29,5 +29,6 @@ int main() {
     f1.setNumeratore(12); 
     f1.setDenominatore(3);
     f1.stampa();
+    
 }
 
