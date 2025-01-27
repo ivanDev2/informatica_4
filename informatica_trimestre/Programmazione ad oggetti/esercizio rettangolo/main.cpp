@@ -7,7 +7,7 @@ int main(int argc, char** argv){
     Rettangolo R1;
     R1.setBase(4);
     R1.setAltezza(4);
-    R1stampa();
+    R1.stampa();
 
     Rettangolo R2;
     R2.stampa();

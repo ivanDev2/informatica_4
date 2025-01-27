@@ -13,8 +13,8 @@ class Rettangolo{
     ~Rettangolo();
     void setBase(double b);
     void setAltezza(double altezza);
-    void getBase();
-    void getAltezza();
+    double getBase();
+    double getAltezza();
     double calcolaPerimetro();
     double calcolaArea();
     double calcolaDiagonale();
