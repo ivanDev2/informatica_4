@@ -1,24 +1,23 @@
 #include <iostream>
-#ifndef RETTANGOLO_H
-#define RETTANGOLO_H
+#include "Rettangolo.h"
 
-class Rettangolo{
-    private:
-        double base;
-        double altezza;
-    public:
-    Rettangolo();
-    Rettangolo(double x);
-    Rettangolo(double x, double y);
-    ~Rettangolo();
-    void setBase(double b);
-    void setAltezza(double altezza);
-    void getBase();
-    void getAltezza();
-    double calcolaPerimetro();
-    double calcolaArea();
-    double calcolaDiagonale();
-    void stampa();
+using namespace std;
 
-};
-#endif
+int main(int argc, char** argv){
+    Rettangolo R1;
+    R1.setBase(4);
+    R1.setAltezza(4);
+    R1stampa();
+
+    Rettangolo R2;
+    R2.stampa();
+    cout<<endl;
+
+    Rettangolo R3(5);
+    R3.stampa();
+    cout<<endl;
+
+    Rettangolo R4(4,2);
+    R4.stampa();
+    return 0;
+}
