@@ -21,5 +21,6 @@ class Rettangolo{
     void stampa();
 
 };
+
 #endif
 
