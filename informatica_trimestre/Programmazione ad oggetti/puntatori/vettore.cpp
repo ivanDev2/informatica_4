@@ -6,19 +6,21 @@
 
 void caricaVet(int vet[N]);
 void stampaVet(int vet[N]);
-int maxVet(int vet[N]);
-int minVet(int vet[N]);
+int* maxVet(int vet[N]);
+int* minVet(int vet[N]);
 
 int main(){
     srand(time(NULL));
-    int vet[N], max, min;
+    int vet[N], *max, *min;
 
     caricaVet(vet);
     stampaVet(vet);
     max = maxVet(vet);
-    printf("il massimo e' di:%d\n", max);
+    printf("il massimo e' di:%d\n", *max);
+    printf("l'indice e' di : %ld\n", max - vet);
     min = minVet(vet);
-    printf("il minimo e' di:%d\n", min);
+    printf("il minimo e' di:%d\n", *min);
+    printf("l'indice e' di : %ld\n", min - vet);
 }
 
 void caricaVet(int vet[N]){
@@ -38,30 +40,31 @@ void stampaVet(int vet[N]){
     printf("\n");
 }
 
-int maxVet(int vet[N]){
+int* maxVet(int vet[N]){
     int *p;
     p = vet;
-    int max = *p; 
-    
+    int *max; 
+    max = p;
 
     for(p = vet; p - vet < N; p++){
-        if(*p > max){
-            max = *p;
+        if(*p > *max){
+            max = p;
         }
     }
 
     return max; 
 }
 
-int minVet(int vet[N]){
+int* minVet(int vet[N]){
     int *p;
     p = vet;
-    int min = *p; 
+    int *min; 
+    min = p; 
     
 
     for(p = vet; p - vet < N; p++){
-        if(*p < min){
-            min = *p;
+        if(*p < *min){
+            min = p;
         }
     }
 
