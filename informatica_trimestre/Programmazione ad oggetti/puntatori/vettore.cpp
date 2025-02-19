@@ -8,6 +8,7 @@ void caricaVet(int vet[]);
 void stampaVet(int vet[]);
 int* maxVet(int vet[]);
 int* minVet(int vet[]);
+void ordinaVettore(int vet[]);
 
 int main(){
     srand(time(NULL));
@@ -15,19 +16,26 @@ int main(){
 
     caricaVet(vet);
     stampaVet(vet);
+
     max = maxVet(vet);
     printf("il massimo e' di:%d\n", *max);
     printf("l'indice e' di : %ld\n", max - vet);
+
     min = minVet(vet);
     printf("il minimo e' di:%d\n", *min);
     printf("l'indice e' di : %ld\n", min - vet);
+
+    printf("vettore ordinato:\n");
+    ordinaVettore(vet);
+    stampaVet(vet);
+
 }
 
 void caricaVet(int vet[N]){
     int *p;
     p = vet;
     for(p = vet; p - vet < N; p++){
-        *p = rand()% 10+1; 
+        *p = rand()% 100+1; 
     }
 }
 
@@ -35,7 +43,7 @@ void stampaVet(int vet[N]){
     int *p;
     p = vet;
     for(p = vet; p - vet < N; p++){
-        printf("%2d", *p);
+        printf("%3d", *p);
     }
     printf("\n");
 }
@@ -69,4 +77,19 @@ int* minVet(int vet[N]){
     }
 
     return min;
+}
+
+void ordinaVettore(int vet[N]){
+    int *p, *q, k;
+
+    for(p = vet; p - vet < N-1; p++){
+        for(q = p+1; q - vet < N; q++){
+
+            if(*p > *q){
+                k = *p;
+                *p = *q;
+                *q = k;  
+            }
+        }
+    }
 }
