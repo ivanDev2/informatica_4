@@ -4,10 +4,10 @@
 
 #define N 5
 
-void caricaVet(int vet[N]);
-void stampaVet(int vet[N]);
-int* maxVet(int vet[N]);
-int* minVet(int vet[N]);
+void caricaVet(int vet[]);
+void stampaVet(int vet[]);
+int* maxVet(int vet[]);
+int* minVet(int vet[]);
 
 int main(){
     srand(time(NULL));
@@ -27,7 +27,7 @@ void caricaVet(int vet[N]){
     int *p;
     p = vet;
     for(p = vet; p - vet < N; p++){
-        *p = rand()% 10; 
+        *p = rand()% 10+1; 
     }
 }
 
@@ -62,7 +62,7 @@ int* minVet(int vet[N]){
     min = p; 
     
 
-    for(p = vet; p - vet < N; p++){
+    for(p = vet+1; p - vet < N; p++){
         if(*p < *min){
             min = p;
         }
