@@ -46,7 +46,7 @@ int* maxVet(int vet[N]){
     int *max; 
     max = p;
 
-    for(p = vet; p - vet < N; p++){
+    for(p = vet+1; p - vet < N; p++){
         if(*p > *max){
             max = p;
         }
