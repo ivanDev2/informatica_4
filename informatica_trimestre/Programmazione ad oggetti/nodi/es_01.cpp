@@ -1,72 +1,149 @@
-#include <iostream>
+/*Implementare una lista concatenata semplice con le operazioni di base: inserimento in testa, in coda, eliminazione, ricerca e visualizzazione.*/
+/*Scrivere una funzione che conti il numero di nodi in una lista concatenata senza utilizzare un contatore interno alla classe.*/
 
-int cont = 1;
+
+
+
+
+#include <iostream>
+#include <ctime>
+
+using namespace std;
 
 struct s_nodo {
     int info;
     struct s_nodo *next;
 };typedef struct  s_nodo s_nodo;
 
-s_nodo* inserisci_testa(s_nodo *);
-void stampa(s_nodo *testa);
-s_nodo* cancella(s_nodo *testa);
+
+
+class lista{
+    private:
+        s_nodo* s;
+    
+    public:
+
+    //costruttore
+    lista(){
+        s = NULL;
+    }
+
+    //funzione per inserire un nodo in testa
+    s_nodo* inserisci_testa(){
+        s_nodo *P;
+        P = new s_nodo;
+        P-> info = rand()% 101;
+        P -> next = s;
+        s = P;
+
+        return s;
+
+    }
+
+
+    void inserisci_ultimo(){
+        s_nodo* P;
+        P  = new s_nodo;
+        P ->info = rand()%101;
+        P ->next= NULL;
+        if(s == NULL){
+            s = P;
+        }
+        else{
+            s_nodo* q = s;
+            while(q -> next != NULL){
+                q = q -> next;
+            }
+            q -> next = P;
+        }
+    }
+
+    //stampa 
+    void stampa(){
+        s_nodo *P = s;
+
+        while(P != NULL){
+            cout << P -> info << " ";
+            P = P -> next;
+        }
+        cout << endl;
+    }
+
+
+    //funzione per cancellare un nodo
+    int cancella_nodo(){
+
+        if(s == NULL){
+            cout << "Lista vuota" << endl;
+            return 1;
+        }
+        else{
+            s_nodo *P = s;
+            s = s -> next;
+            delete(P);
+        }
+    
+        return 0;
+    }
+    
+    //funzione per la ricerca di un nodo
+    int ricercaNodo(int value){
+        s_nodo* P = s;
+
+        while(P !=NULL){
+            if (P -> info == value){
+                return 1;
+            }
+            P = P -> next;
+        }
+        cout << "Nodo non trovato" << endl;
+        return 0;
+
+    }
+
+    //funzione per contare i nodi
+    int contNodo(){
+        s_nodo *P;
+        int cont = 0;
+        P = s;
+        while(P != NULL){
+            cont ++;
+            P = P -> next;
+        }
+        cout << "Il numero di nodi è: " << cont << endl;
+        return cont;
+    }
+
+
+
+    
+};
 
 
 int main() {
-    struct s_nodo* testa = NULL;
-    for(int i=0; i<3 ; i++){
-       testa= inserisci_testa(testa); 
-       cont ++;
-    }
-    stampa(testa);
-    printf("\n");
+    srand(time(NULL));
+    lista L1;
+    int r;
 
-    while(testa != NULL){
-        testa = cancella(testa);
-        stampa(testa);
-        printf("\n");
-
-    }
-
-}
-
-//funzione per inserire un nodo in testa
-s_nodo* inserisci_testa(s_nodo *testa){
-    s_nodo *P;
-    P = new s_nodo;
-    P-> info = cont;
-    P -> next = testa;
-    testa = P;
-
-    return testa;
-
-}
-
-//stampa 
-void stampa(s_nodo *testa){
-    s_nodo *P = testa;
-
-    while(P != NULL){
-        printf("%d\n", P ->info);
-        P = P -> next;
-    }
-}
-
-s_nodo* cancella(s_nodo *testa){
-
-    if(testa == NULL){
-        printf("lista vuota\n");
-        return NULL;
+    for(int i=0; i<5; i++){
+        L1.inserisci_testa();
     }
     
-    s_nodo *P = testa;
-    testa = testa -> next;
-    delete(P);
+    L1.stampa();
+
+    //L1.inserisci_ultimo();
+    //L1.stampa();
     
-    return testa;
+    //L1.cancella_nodo();
+    //L1.stampa();
+
+    //cout << L1.ricercaNodo(32);
+
+    r = L1.contNodo();
+
+
+
 }
-
-
 
 
 
