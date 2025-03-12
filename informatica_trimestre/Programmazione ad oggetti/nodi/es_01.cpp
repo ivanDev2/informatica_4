@@ -121,7 +121,8 @@ public:
         cout << "Il numero di nodi è: " << cont << endl;
         return cont;
     }
-
+    
+    // funzione per rimuovere i duplicati
     void rimuovi_duplicati(){
         s_nodo *P = s;
         s_nodo *Q = s;
