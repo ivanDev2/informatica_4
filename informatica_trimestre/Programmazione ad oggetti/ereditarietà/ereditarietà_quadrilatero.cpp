@@ -53,7 +53,7 @@ class Rettangolo : public Quadrilatero{
         Rettangolo(int base, int altezza) : Quadrilatero(base, altezza, base , altezza){}
 
         //metodo per calcolare il perimetro
-        int perimetro(){
+        int perimetro(){ 
             return (getLato1() * 2 + getLato2() * 2);
         }
 
